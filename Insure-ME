@@ -26,5 +26,17 @@ pipeline {
                 sh 'docker build -t anamikakumari998/insure_me_app:1.0 .'
             }
         }
+        stage('Login to Dockerhub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerlogin', passwordVariable: 'dockerpass', usernameVariable: 'dockeruser')]) {
+                    sh 'docker login -u ${env.dockeruser} -p ${env.dockerpass}'
+                }
+            }
+        }
+        stage('push the docker image') {
+            steps {
+                sh 'docker push anamikakumari998/insure_me_app:1.0'
+            }
+        }
     }
 }
