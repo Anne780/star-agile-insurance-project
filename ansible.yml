@@ -4,8 +4,11 @@
   become: true
   connection: ssh
   tasks: 
-    - name: updating the new Ec2 machine
-      command: sudo yum update
+    - name: updating the new EC2 machine
+      apt:
+        upgrade: yes
+      become: yes
+      become_user: root
 
     - name: Install Docker
       apt:
@@ -20,6 +23,3 @@
         state: started
       become: yes
       become_user: root
-
-
-
