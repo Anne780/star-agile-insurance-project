@@ -30,13 +30,13 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerlogin1', passwordVariable: 'dockerpass', usernameVariable: 'dockeruser')]) {
                     script {
-                        def dockerAuth = "echo \${env.dockerpass} | docker login -u \${env.dockeruser} --password-stdin"
+                        def dockerAuth = "echo \$dockerpass | docker login -u \$dockeruser --password-stdin"
                         sh dockerAuth
                     }
                 }
             }
         }
-        stage('push the docker image') {
+        stage('Push the Docker image') {
             steps {
                 sh "docker push anamikakumari998/insure_me_app:1.0"
             }
