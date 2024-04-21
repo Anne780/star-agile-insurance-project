@@ -2,14 +2,16 @@
 - name: Docker configure in EC2 Machine
   hosts: all
   become: true
-  connection: ssh
   tasks:
     - name: updating the new EC2 machine
-      command: sudo yum update
+      # Use apt instead of yum for Debian-based systems
+      command: sudo apt update
 
     - name: Install Docker
-      command: sudo yum install docker
+      # Use apt instead of yum for Debian-based systems
+      command: sudo apt install docker.io
 
     - name: Start Docker service
       command: sudo systemctl start docker
+
 
