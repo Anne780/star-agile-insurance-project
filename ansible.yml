@@ -1,18 +1,25 @@
 ---
 - name: Docker configure in EC2 Machine
   hosts: all
-  become: yes
-  become_user: ubuntu
-  tasks:
+  become: true
+  connection: ssh
+  tasks: 
+    - name: updating the new Ec2 machine
+      command: sudo yum update
+
     - name: Install Docker
       apt:
         name: docker.io
         state: present
+      become: yes
+      become_user: root
 
     - name: Start Docker service
       service:
         name: docker
         state: started
+      become: yes
+      become_user: root
 
 
 
