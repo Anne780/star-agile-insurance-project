@@ -41,5 +41,10 @@ pipeline {
                 sh "docker push anamikakumari998/insure_me_app:1.0"
             }
         }
+        stage('Ansible config and Deployment') {
+            steps {
+                ansiblePlaybook credentialsId: 'ansible-ssh', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'ansible.yml', vaultTmpPath: ''
+            }
+        }
     }
 }
