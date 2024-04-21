@@ -1,36 +1,39 @@
-pipeline
-{
-  agent any
-   tools
-   {
-    maven 'M2_HOME'
-     }
- stages 
-  {
-  stage('Git checkout') 
-  {
-   steps 
-    {
-     echo 'This is for cloing the git repo'
-     git branch: 'master', url: 'https://github.com/Anne780/star-agile-insurance-project.git'
-                }
-       }
-      stage('Create a package') {
-        steps {
-          echo 'This will create a package using maven'
-            sh 'mvn package'
-               }
-             }
-     stage('publish the HTML Reports')
-       {
-      steps { 
-         publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins//workspace/Insure-Project/target/surefire-reports', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
-       }
-   }
-  stage(' Create a Docker image from the Package Insure-Me.jar')
-{
-steps
-{
-sh 'docker build -t anamikakumari998/insure_me_app:1.0 .'
-  }
+pipeline {
+    agent any
+    tools {
+        maven 'M2_HOME'
+    }
+    stages {
+        stage('Git checkout') {
+            steps {
+                echo 'This is for cloning the git repo'
+                git branch: 'master', url: 'https://github.com/Anne780/star-agile-insurance-project.git'
+            }
+        }
+        stage('Create a package') {
+            steps {
+                echo 'This will create a package using Maven'
+                sh 'mvn package'
+            }
+        }
+        stage('Publish the HTML Reports') {
+            steps {
+                publishHTML([
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: false,
+                    keepAll: false,
+                    reportDir: '/var/lib/jenkins/workspace/Insure-Project/target/surefire-reports',
+                    reportFiles: 'index.html',
+                    reportName: 'HTML Report',
+                    reportTitles: '',
+                    useWrapperFileDirectly: true
+                ])
+            }
+        }
+        stage('Create a Docker image from the Package Insure-Me.jar') {
+            steps {
+                sh 'docker build -t anamikakumari998/insure_me_app:1.0 .'
+            }
+        }
+    }
 }
