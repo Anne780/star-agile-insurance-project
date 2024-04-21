@@ -35,7 +35,7 @@ pipeline {
         }
         stage('push the docker image') {
             steps {
-                sh 'docker push anamikakumari998/insure_me_app:1.0'
+                sh "docker login -u ${env.dockeruser} -p ${env.dockerpass}"
             }
         }
     }
