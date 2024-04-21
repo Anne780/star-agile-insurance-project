@@ -29,16 +29,16 @@ pipeline {
         stage('Login to Dockerhub') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerlogin1', passwordVariable: 'dockerpass', usernameVariable: 'dockeruser')]) {
-            script {
-                def dockerAuth = "echo \${env.dockerpass} | docker login -u \${env.dockeruser} --password-stdin"
-                sh dockerAuth
-                   {
-               }
+                    script {
+                        def dockerAuth = "echo \${env.dockerpass} | docker login -u \${env.dockeruser} --password-stdin"
+                        sh dockerAuth
+                    }
+                }
             }
         }
         stage('push the docker image') {
             steps {
-                sh "docker login -u ${env.dockeruser} -p ${env.dockerpass}"
+                sh "docker push anamikakumari998/insure_me_app:1.0"
             }
         }
     }
