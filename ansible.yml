@@ -1,19 +1,15 @@
-name: Docker configure in EC2 Machine
-hosts: all
-become: true
-connection: ssh
-tasks: 
--name: updating the new Ec2 machine
-command: sudo yum update
+---
+- name: Docker configure in EC2 Machine
+  hosts: all
+  become: true
+  connection: ssh
+  tasks:
+    - name: updating the new EC2 machine
+      command: sudo yum update
 
+    - name: Install Docker
+      command: sudo yum install docker
 
--name: Install Docker
-command:sudo apt install docker.io
-become: yes
-become_user: root
+    - name: Start Docker service
+      command: sudo systemctl start docker
 
-
--name: Start Docker service
-command: sudo systemctl start docker
-beocme: yes
-become_user: root
