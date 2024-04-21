@@ -31,6 +31,6 @@ pipeline
 {
 steps
 {
-sh 'docker build -t anamikakumari998/insure_me_app:1.0 .')
+sh 'docker build -t anamikakumari998/insure_me_app:1.0 .'
   }
 }
