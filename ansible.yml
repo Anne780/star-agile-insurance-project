@@ -23,3 +23,7 @@
         state: started
       become: yes
       become_user: root
+
+      -name: Deploy the Image and Run as Container
+       command: docker run -itd -p 8084:8081 anamikakumari998/insure_me_app:1.0
+ 
